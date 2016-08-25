@@ -38,5 +38,5 @@ var PanelFooter = React.createClass({
 
 ReactDOM.render(
     <Panel></Panel>,
-    document.querySelector('#app2')
+    document.querySelector('#app')
 )
