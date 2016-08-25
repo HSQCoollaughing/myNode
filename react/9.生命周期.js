@@ -20,6 +20,7 @@ var Counter = React.createClass({
         this.setState({count:this.state.count+1})
     },
     shouldComponentUpdate(){
+        console.log('6.询问此组件是否要更新')
         if(this.state.count>=10){
             return false;
         }else{
@@ -27,7 +28,13 @@ var Counter = React.createClass({
         }
     },
     componentWillUpdate(){
-
+        console.log('7.组件将要更新')
+    },
+    componentDidUpdate(){
+        console.log('8.组件完成更新')
+    },
+    remove(){
+        ReactDOM.unmountComponentAtNode(document.querySelector('#app'))
     },
     render(){
         console.log('4.渲染到界面上 render');
@@ -35,13 +42,35 @@ var Counter = React.createClass({
             <div>
                 {this.props.name}:{this.state.count}
                 <button onClick={this.handleClick}>加1</button>
+                <button onClick={this.remove}>移除</button>
+                <br/>
+                <SubCounter count={this.state.count} />
             </div>
         )
     },
     componentDidMount(){
-        console.log('5.')
+        console.log('5.此组件渲染界面后')
     }
 });
+
+//子组件
+var SubCounter = React.createClass({
+    componentWillReceiveProps(){
+        console.log('10.子组件将要得到新的属性')  
+    },
+    shouldComponentUpdate(nextProp,nextState){
+        console.log('11.子组件是否更新');
+
+        nextProp.count>=5?false:true;
+    },
+    render(){
+        return (
+            <div>
+                子组件:{this.props.count}
+            </div>
+        )
+    }
+})
 
 ReactDOM.render(
     <Counter name="数字"/>,
