@@ -1,5 +1,6 @@
 var Focus = React.createClass({
     handle(){
+        //this.refs是获取DOM元素的集合
         this.refs.input.focus();
     },
     render(){
