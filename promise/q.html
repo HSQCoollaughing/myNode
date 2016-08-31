@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="ctrl">
+    {{name}}
+</div>
+</body>
+</html>
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module('app',[]);
+
+    app.factory('getName', function ($q) {
+        var name;
+        //刚开始name没有初始化，等2秒后才取到值
+
+        var defer = $q.defer();
+
+        setTimeout(function () {
+            name = '珠峰';
+            defer.resolve(name);
+        },2000);
+        return defer.promise;
+    });
+
+    app.controller('ctrl', function ($scope,getName) {
+        getName.then(function (name) {
+            $scope.name = name;
+        });
+    })
+</script>

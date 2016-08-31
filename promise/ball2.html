@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .ball{
+            width:40px;
+            height:40px;
+            border-radius:50%;
+
+        }
+        .ball1{background: red;}
+        .ball2{background: blue;}
+        .ball3{background: yellow};
+    </style>
+</head>
+<body>
+<div class="ball ball1" style="margin-left:0"></div>
+<div class="ball ball2" style="margin-left:0"></div>
+<div class="ball ball3" style="margin-left:0"></div>
+<div class="ball ball1" style="margin-left:0"></div>
+<div class="ball ball2" style="margin-left:0"></div>
+<div class="ball ball3" style="margin-left:0"></div>
+<div class="ball ball1" style="margin-left:0"></div>
+<div class="ball ball2" style="margin-left:0"></div>
+<div class="ball ball3" style="margin-left:0"></div>
+<div class="ball ball1" style="margin-left:0"></div>
+<div class="ball ball2" style="margin-left:0"></div>
+<div class="ball ball3" style="margin-left:0"></div>
+<div class="ball ball1" style="margin-left:0"></div>
+<div class="ball ball2" style="margin-left:0"></div>
+<div class="ball ball3" style="margin-left:0"></div>
+<div class="ball ball1" style="margin-left:0"></div>
+<div class="ball ball2" style="margin-left:0"></div>
+<div class="ball ball3" style="margin-left:0"></div>
+<div class="ball ball1" style="margin-left:0"></div>
+<div class="ball ball2" style="margin-left:0"></div>
+<div class="ball ball3" style="margin-left:0"></div>
+<div class="ball ball1" style="margin-left:0"></div>
+<div class="ball ball2" style="margin-left:0"></div>
+<div class="ball ball3" style="margin-left:0"></div>
+</body>
+</html>
+<script>
+    var balls=document.querySelectorAll('.ball');
+    function move(ele,target,cb){
+        setTimeout(function () {
+            var curr = parseInt(ele.style.marginLeft);
+            if(curr < target){
+                ele.style.marginLeft = (curr+10)+'px';
+                move(ele,target,cb);
+            }else{
+                cb && cb();
+            }
+        },30)
+    }
+
+    function animate(ele,target){
+        return new Promise(function (resolve,reject) {
+            move(ele,target,resolve)
+        })
+    }
+
+    var promise = animate(balls[0],100);
+    for(let i=0;i<balls.length;i++){
+        promise = promise.then(function () {
+            return animate(balls[i],100);
+        })
+    }
+
+
+
+
+</script>

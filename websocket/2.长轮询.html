@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html>
+<script>
+    function send() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET','http://localhost:9090/clock');
+        xhr.onreadystatechange= function () {
+            if(xhr.readyState==4 && /2\d{2}/.test(xhr.status)){
+                document.querySelector('#box').innerHTML=xhr.responseText;
+                send()
+            }
+        }
+        xhr.send();
+    }
+
+    send()
+</script>
